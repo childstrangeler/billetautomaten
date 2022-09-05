@@ -10,6 +10,7 @@ public class App {
 
         String input = userinput.nextLine();
 
+        userinput.close();
         System.out.println("du skrev: " + input);
 
     }
