@@ -14,4 +14,6 @@ public class Map {
         new Zone({tp("C", 0), tp("m3", 0)}),
     };
   }
+
+  public Zone[] quickest_route(int from, int to) { new Zone[](0) }
 }
