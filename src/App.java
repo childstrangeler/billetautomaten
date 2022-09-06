@@ -4,7 +4,7 @@ public class App {
 
     public String fraby = "";
     public String tilby = "";
-    public int zonepris = 0;
+    static public int zonepris = 14;
 
     // billetautomaten tager konsol argumenter som adminpris
     public static void main(String[] args) throws Exception {
@@ -18,7 +18,9 @@ public class App {
 
         String tilby = userinput.nextLine();
 
-        System.out.println("Du vil gerne rejse til: " + tilby + ".");
+        System.out.println("Du vil gerne rejse til: " + tilby);
+        System.out.println(
+                "Rejsen fra " + fraby + " til " + tilby + " vil koste dig: " + zonepris + " DKK, betal venligst:");
 
         userinput.close();
     }
