@@ -20,7 +20,6 @@ public class App {
     public String fraby = "";
     public String tilby = "";
     static public int zonepris = 14;
-    public String adminuser = "admin";
     public String adminkey = "admin1";
 
     // billetautomaten tager konsol argumenter som adminpris
