@@ -21,10 +21,11 @@ public class App {
     public String tilby = "";
     static public int zonepris = 14;
     public String adminuser = "admin";
-    public String adminkey = "admin";
+    public String adminkey = "admin1";
 
     // billetautomaten tager konsol argumenter som adminpris
     public static void main(String[] args) throws Exception {
+
         System.out.println("Hvilken by vil du rejse fra?");
 
         Scanner userinput = new Scanner(System.in);
