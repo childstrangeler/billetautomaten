@@ -42,7 +42,7 @@ public class App {
 
         System.out.println("Du vil gerne rejse til: " + tilby);
         System.out.println(
-                "Rejsen fra " + fraby + " til " + tilby + " vil koste dig: " + zonepris + " DKK, betal venligst:");
+                "Rejsen fra " + fraby + " til " + tilby + " vil koste dig: " + billetpris + " DKK, betal venligst:");
 
         user_input.close();
     }
