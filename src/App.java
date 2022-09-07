@@ -17,28 +17,33 @@ automaten og kunne tømme den for penge.
 
 public class App {
 
-    public String fraby = "";
-    public String tilby = "";
-    static public int zonepris = 14;
-    public String adminkey = "admin1";
+    String fraby = "";
+    String tilby = "";
+    static String admin_key = "admin1";
 
-    // billetautomaten tager konsol argumenter som adminpris
     public static void main(String[] args) throws Exception {
+
+        int zonepris = 14;
+        int billetpris = 20;
+
+        System.out.println("Kunde eller Admin?");
+
+        Scanner user_input = new Scanner(System.in);
+
+        boolean is_admin = user_input.nextLine() == admin_key;
 
         System.out.println("Hvilken by vil du rejse fra?");
 
-        Scanner userinput = new Scanner(System.in);
-
-        String fraby = userinput.nextLine();
+        String fraby = user_input.nextLine();
 
         System.out.println("Du vil gerne rejse fra: " + fraby + ". Hvor vil du gerne rejse til?");
 
-        String tilby = userinput.nextLine();
+        String tilby = user_input.nextLine();
 
         System.out.println("Du vil gerne rejse til: " + tilby);
         System.out.println(
                 "Rejsen fra " + fraby + " til " + tilby + " vil koste dig: " + zonepris + " DKK, betal venligst:");
 
-        userinput.close();
+        user_input.close();
     }
 }
