@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 // Map er en graf struktur, hvor hver node er en zone og hver edge er en linje
 // (c tog, m1, 350s, etc)
 public class Map {
@@ -15,5 +17,18 @@ public class Map {
     };
   }
 
-  public Zone[] quickest_route(int from, int to) { return new Zone[0]; }
+  public boolean find_path(int from, int to, int depth,
+                           ArrayList<TransportLinje> cache) {
+    if (from == to)
+      return true;
+    if (depth > map.length)
+      return false;
+
+    ArrayList<TransportLinje> stop = new ArrayList<TransportLinje>(0);
+    for (int linje = 0; linje < map[from].linjer(); linje++)
+      if (find_path(map[from].linjer[linje].next_zone, to, depth + 1, cache))
+        cache.add(map[from].linjer[linje]);
+
+    return false;
+  }
 }
