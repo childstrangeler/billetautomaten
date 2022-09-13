@@ -17,18 +17,24 @@ public class Map {
     };
   }
 
-  public boolean find_path(int from, int to, int depth,
-                           ArrayList<TransportLinje> cache) {
+  public boolean find_path_inner(int from, int to, int depth,
+                                 ArrayList<TransportLinje> cache) {
     if (from == to)
       return true;
     if (depth > map.length)
       return false;
 
-    ArrayList<TransportLinje> stop = new ArrayList<TransportLinje>(0);
     for (int linje = 0; linje < map[from].linjer(); linje++)
-      if (find_path(map[from].linjer[linje].next_zone, to, depth + 1, cache))
+      if (find_path_inner(map[from].linjer[linje].next_zone, to, depth + 1,
+                          cache))
         cache.add(map[from].linjer[linje]);
 
     return false;
+  }
+
+  public ArrayList<TransportLinje> find_path(int from, int to) {
+    ArrayList<TransportLinje> cache = new ArrayList<TransportLinje>(0);
+    this.find_path_inner(from, to, 0, cache);
+    return cache;
   }
 }

@@ -6,4 +6,6 @@ public class TransportLinje {
     name = a;
     next_zone = b;
   }
+
+  public void print() { System.out.print(name + " to zone " + next_zone); }
 }
