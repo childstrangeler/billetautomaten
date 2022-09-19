@@ -25,7 +25,6 @@ public class App {
         int tilzone = 0;
         int frazone = 0;
         int zonepris = 14;
-        int billetpris = 20;
 
         System.out.println("Kunde eller Admin?");
 
