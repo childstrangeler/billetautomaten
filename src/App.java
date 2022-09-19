@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
@@ -43,7 +44,13 @@ public class App {
         System.out.println("Du vil gerne rejse til: " + tilby);
         System.out.println(
                 "Rejsen fra " + fraby + " til " + tilby + " vil koste dig: " + billetpris + " DKK, betal venligst:");
+        Map kort = new Map();
 
+        ArrayList<TransportLinje> rute = kort.find_path(0, 2);
+
+        for (int i = 0; i < rute.size(); i++) {
+            rute.get(i).print();
+        }
         user_input.close();
     }
 }
