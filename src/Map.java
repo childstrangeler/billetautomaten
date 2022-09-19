@@ -26,8 +26,10 @@ public class Map {
 
     for (int linje = 0; linje < map[from].linjer(); linje++)
       if (find_path_inner(map[from].linjer[linje].next_zone, to, depth + 1,
-                          cache))
+                          cache)) {
         cache.add(map[from].linjer[linje]);
+        return true;
+      }
 
     return false;
   }
