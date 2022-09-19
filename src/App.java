@@ -18,12 +18,12 @@ automaten og kunne tømme den for penge.
 
 public class App {
 
-    String fraby = "";
-    String tilby = "";
     static String admin_key = "admin1";
 
     public static void main(String[] args) throws Exception {
 
+        int tilzone = 0;
+        int frazone = 0;
         int zonepris = 14;
         int billetpris = 20;
 
@@ -33,24 +33,29 @@ public class App {
 
         boolean is_admin = user_input.nextLine() == admin_key;
 
-        System.out.println("Hvilken by vil du rejse fra?");
+        System.out.println("Hvilken zone vil du rejse fra?");
 
-        String fraby = user_input.nextLine();
+        frazone = Integer.parseInt(user_input.nextLine());
+        System.out.println("Du vil gerne rejse fra zone: " + frazone + ". Hvilken zone vil du gerne rejse til?");
 
-        System.out.println("Du vil gerne rejse fra: " + fraby + ". Hvor vil du gerne rejse til?");
+        tilzone = Integer.parseInt(user_input.nextLine());
 
-        String tilby = user_input.nextLine();
+        System.out.println("Du vil gerne rejse til zone: " + tilzone);
 
-        System.out.println("Du vil gerne rejse til: " + tilby);
-        System.out.println(
-                "Rejsen fra " + fraby + " til " + tilby + " vil koste dig: " + billetpris + " DKK, betal venligst:");
         Map kort = new Map();
 
-        ArrayList<TransportLinje> rute = kort.find_path(0, 2);
+        ArrayList<TransportLinje> rute = kort.find_path(frazone, tilzone);
 
-        for (int i = 0; i < rute.size(); i++) {
+        for (int i = rute.size() - 1; i >= 0; i--) {
+            if (i != rute.size() - 1)
+                System.out.print(" + ");
             rute.get(i).print();
+
         }
+        System.out.println("");
+        System.out.println(
+                "Rejsen fra zone " + frazone + " til zone " + tilzone + " vil koste dig: " + rute.size() * zonepris
+                        + " DKK, betal venligst:");
         user_input.close();
     }
 }
