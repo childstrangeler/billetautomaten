@@ -52,13 +52,19 @@ public class App {
 
         }
         System.out.println("");
-        System.out.println(
+        format_kvittering(
                 "Rejsen fra zone " + frazone + " til zone " + tilzone + " vil koste dig: " + rute.size() * zonepris
                         + " DKK, betal venligst:");
         user_input.close();
     }
 
-    public static void format_kvittering(String[] kvit) {
-
+    public static void format_kvittering(String kvit) {
+        int breathdhth = 49;
+        for (int i = 0; i < (breathdhth - kvit.length()) / 2; i++) {
+            kvit = " " + kvit + " ";
+        }
+        if (kvit.length() % 2 != 0)
+            kvit += " ";
+        System.out.println("|" + kvit + "|");
     }
 }
