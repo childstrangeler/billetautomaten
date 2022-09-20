@@ -12,9 +12,14 @@ public class Map {
 
   public Map() {
     map = new Zone[] {
-        new Zone(new TransportLinje[] { tp("C", 1), tp("m1", 2) }),
-        new Zone(new TransportLinje[] { tp("C", 2), tp("m1", 0) }),
-        new Zone(new TransportLinje[] { tp("C", 0), tp("m3", 0) }),
+        new Zone(new TransportLinje[] {}),
+        new Zone(new TransportLinje[] { tp("m3/m4", 2), tp("m1/m2", 2), tp("m1/m2", 3), tp("C", 2), tp("A", 2),
+            tp("E", 2), tp("B", 2),
+            tp("H", 2) }),
+        new Zone(new TransportLinje[] { tp("m1/m2", 3), tp("m1/m2", 3), tp("C", 32), tp("A", 31), tp("E", 33),
+            tp("E", 30), tp("B", 30),
+            tp("B", 32), tp("H", 2) }),
+        new Zone(new TransportLinje[] { tp("C", 2), tp("m1", 3) }),
     };
   }
 
