@@ -57,4 +57,8 @@ public class App {
                         + " DKK, betal venligst:");
         user_input.close();
     }
+
+    public static void format_kvittering(String[] kvit) {
+
+    }
 }
