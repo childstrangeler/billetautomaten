@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 // Map er en graf struktur, hvor hver node er en zone og hver edge er en linje
 // (c tog, m1, 350s, etc)
@@ -18,7 +17,9 @@ public class Map {
     }
   }
 
-  public String get_stop_name(int i) { return stoppesteder.get(i); }
+  public String get_stop_name(int i) {
+    return stoppesteder.get(i);
+  }
 
   public Map() {
     map = new HashMap<>();
@@ -26,11 +27,20 @@ public class Map {
 
     kortprlinje.put(
         "m2", new String[] {
-                  "Lufthavnen St", "Kastrup St", "Femøren St",
-                  "Amager Strand St", "Øresund St", "Lergravsparken St",
-                  "Amagerbro St", "Christianshavn St", "Kongens Nytorv St",
-                  "Nørreport St", "Forum St", "Frederiksberg St", "Fasanvej St",
-                  "Lindevang St", "Flintholm St", "Vanløse St"});
+            "Lufthavnen St", "Kastrup St", "Femøren St",
+            "Amager Strand St", "Øresund St", "Lergravsparken St",
+            "Amagerbro St", "Christianshavn St", "Kongens Nytorv St",
+            "Nørreport St", "Forum St", "Frederiksberg St", "Fasanvej St",
+            "Lindevang St", "Flintholm St", "Vanløse St" });
+    kortprlinje.put(
+        "m1", new String[] {
+            "Vestamager St", "Ørestad St", "Bella Center St", "Sundby St",
+            "DR Byen St", "Islands Brygge St", "Christianshavn St", "Kongens Nytorv St",
+            "Nørreport St", "Forum St", "Frederiksberg St", "Fasanvej St",
+            "Lindevang St", "Flintholm St", "Vanløse St" });
+    kortprlinje.put(
+        "m3", new String[] {
+        });
 
     map.put("Nowhere", new ArrayList<>());
     for (String[] stop : kortprlinje.values())
@@ -45,8 +55,8 @@ public class Map {
   }
 
   public boolean find_path_inner(String from, String to, int depth,
-                                 int max_depth,
-                                 ArrayList<TransportLinje> cache) {
+      int max_depth,
+      ArrayList<TransportLinje> cache) {
     if (from.equals(to))
       return true;
     if (depth > max_depth)
@@ -54,7 +64,7 @@ public class Map {
 
     for (int linje = 0; linje < map.get(from).size(); linje++)
       if (find_path_inner(map.get(from).get(linje).next_stop, to, depth + 1,
-                          max_depth, cache)) {
+          max_depth, cache)) {
         cache.add(map.get(from).get(linje));
         return true;
       }
@@ -67,7 +77,7 @@ public class Map {
     for (int max_depth = 0; max_depth < map.size(); max_depth++)
       for (int linje = 0; linje < map.get(from).size(); linje++)
         if (this.find_path_inner(map.get(from).get(linje).next_stop, to, 1,
-                                 max_depth, cache)) {
+            max_depth, cache)) {
           cache.add(map.get(from).get(linje));
           return cache;
         }
