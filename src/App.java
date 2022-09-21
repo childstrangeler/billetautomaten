@@ -22,8 +22,8 @@ public class App {
 
     public static void main(String[] args) throws Exception {
 
-        int tilzone = 0;
-        int frazone = 0;
+        String tilstop = "";
+        String frastop = "";
         int zonepris = 14;
 
         System.out.println("Kunde eller Admin?");
@@ -34,16 +34,16 @@ public class App {
 
         System.out.println("Hvilken zone vil du rejse fra?");
 
-        frazone = Integer.parseInt(user_input.nextLine());
-        System.out.println("Du vil gerne rejse fra zone: " + frazone + ". Hvilken zone vil du gerne rejse til?");
+        frastop = user_input.nextLine();
+        System.out.println("Du vil gerne rejse fra zone: " + frastop + ". Hvilken zone vil du gerne rejse til?");
 
-        tilzone = Integer.parseInt(user_input.nextLine());
+        tilstop = user_input.nextLine();
 
-        System.out.println("Du vil gerne rejse til zone: " + tilzone);
+        System.out.println("Du vil gerne rejse til zone: " + tilstop);
 
         Map kort = new Map();
 
-        ArrayList<TransportLinje> rute = kort.find_path(frazone, tilzone);
+        ArrayList<TransportLinje> rute = kort.find_path(frastop, tilstop);
 
         for (int i = rute.size() - 1; i >= 0; i--) {
             if (i != rute.size() - 1)
@@ -53,7 +53,7 @@ public class App {
         }
         System.out.println("");
         format_kvittering(
-                "Rejsen fra zone " + frazone + " til zone " + tilzone + " vil koste dig: " + rute.size() * zonepris
+                "Rejsen fra zone " + frastop + " til zone " + tilstop + " vil koste dig: " + rute.size() * zonepris
                         + " DKK, betal venligst:");
         user_input.close();
     }
