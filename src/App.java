@@ -24,7 +24,7 @@ public class App {
     String frastop = "";
     int zonepris = 14;
 
-    System.out.println("Kunde eller Admin?");
+    System.out.print("Hvis du er admin indtast admin password, eller enter: ");
 
     Scanner user_input = new Scanner(System.in);
 
@@ -35,38 +35,43 @@ public class App {
 
     kort.print_stops();
 
-    System.out.println("Hvilken stop vil du rejse fra?");
+    System.out.print("Hvilket stop vil du rejse fra? ");
     frastop = kort.get_stop_name(Integer.parseInt(user_input.nextLine()));
 
-    System.out.println("Hvilken stop vil du rejse til?");
+    System.out.print("Hvilket stop vil du rejse til? ");
     tilstop = kort.get_stop_name(Integer.parseInt(user_input.nextLine()));
-
-    System.out.println("Du vil gerne rejse fra zone: " + frastop +
-                       ". Hvilken zone vil du gerne rejse til?");
-
-    System.out.println("Du vil gerne rejse til zone: " + tilstop);
 
     ArrayList<TransportLinje> rute = kort.find_path(frastop, tilstop);
 
+    System.out.println("");
+
+    String billet_buffer = "";
+    String last_linje = "";
     for (int i = rute.size() - 1; i >= 0; i--) {
-      if (i != rute.size() - 1)
-        System.out.print(" + ");
-      rute.get(i).print();
+      if (!rute.get(i).linje_name.equals(last_linje) || i == 0) {
+        if (i != rute.size() - 1)
+          billet_buffer += rute.get(i).next_stop;
+        if (i != 0)
+          billet_buffer += " + " + rute.get(i).linje_name + " til ";
+        last_linje = rute.get(i).linje_name;
+      }
     }
     System.out.println("");
-    format_kvittering("Rejsen fra zone " + frastop + " til zone " + tilstop +
-                      " vil koste dig: " + rute.size() * zonepris +
-                      " DKK, betal venligst:");
+
+    format_kvittering(rute.size() * zonepris + " DKK");
+    format_kvittering(billet_buffer);
     user_input.close();
   }
 
   public static void format_kvittering(String kvit) {
-    int breathdhth = 49;
-    for (int i = 0; i < (breathdhth - kvit.length()) / 2; i++) {
+    int breathdhth = 100;
+
+    for (int i = 0; i <= (breathdhth - kvit.length()) / 2; i++)
       kvit = " " + kvit + " ";
-    }
+
     if (kvit.length() % 2 != 0)
       kvit += " ";
+
     System.out.println("|" + kvit + "|");
   }
 }
