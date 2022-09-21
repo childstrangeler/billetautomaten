@@ -1,10 +1,24 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 // Map er en graf struktur, hvor hver node er en zone og hver edge er en linje
 // (c tog, m1, 350s, etc)
 public class Map {
   public HashMap<String, ArrayList<TransportLinje>> map;
+  ArrayList<String> stoppesteder;
+
+  public void print_stops() {
+    stoppesteder = new ArrayList<String>();
+    int i = 0;
+    for (String stop : map.keySet()) {
+      stoppesteder.add(stop);
+      System.out.println(i + ") " + stop);
+      i++;
+    }
+  }
+
+  public String get_stop_name(int i) { return stoppesteder.get(i); }
 
   public Map() {
     map = new HashMap<>();
