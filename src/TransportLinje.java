@@ -1,10 +1,10 @@
 public class TransportLinje {
-  public String name = "";
-  public int next_zone = -1;
+  public String linje_name = "";
+  public String next_stop = "Nowhere";
 
-  public TransportLinje(String a, int b) {
-    name = a;
-    next_zone = b;
+  public TransportLinje(String navn, String next) {
+    linje_name = navn;
+    next_stop = next;
   }
 
   public void print() { System.out.print(name + " til zone " + next_zone); }
