@@ -7,5 +7,7 @@ public class TransportLinje {
     next_stop = next;
   }
 
-  public void print() { System.out.print(name + " til zone " + next_zone); }
+  public void print() {
+    System.out.print(linje_name + " til stop " + next_stop);
+  }
 }
