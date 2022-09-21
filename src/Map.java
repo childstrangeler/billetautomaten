@@ -46,7 +46,7 @@ public class Map {
             "Trianglen St", "Poul Henningsens Plads St", "Vibenshus Runddel St",
             "Skjolds Plads St", "Nørrebro St", "Nørrebros Runddel St",
             "Nuuks Plads St", "Aksel Møllers Have St", "Frederiksberg St",
-            "Frederiksberg Allé St", "Enghave Plads St", "helvede", "København H" });
+            "Frederiksberg Allé St", "Enghave Plads St", "helvede" });
     kortprlinje.put(
         "m4", new String[] {
             "Orientkaj St", "Nordhavn St", "Østerport St", "Marmorkirken St",
