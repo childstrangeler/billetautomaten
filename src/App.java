@@ -34,10 +34,10 @@ public class App {
 
         System.out.println("Hvilken zone vil du rejse fra?");
 
-        frastop = user_input.nextLine();
+        frastop = user_input.nextLine().replace("\n", "");
         System.out.println("Du vil gerne rejse fra zone: " + frastop + ". Hvilken zone vil du gerne rejse til?");
 
-        tilstop = user_input.nextLine();
+        tilstop = user_input.nextLine().replace("\n", "");
 
         System.out.println("Du vil gerne rejse til zone: " + tilstop);
 
