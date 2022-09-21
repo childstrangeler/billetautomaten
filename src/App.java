@@ -46,7 +46,10 @@ public class App {
     System.out.println("");
 
     String billet_buffer = "";
+    // for (int i = rute.size() - 1; i >= 0; i--)
+    // rute.get(i).print();
     String last_linje = "";
+    rute.get(0).print();
     for (int i = rute.size() - 1; i >= 0; i--) {
       if (!rute.get(i).linje_name.equals(last_linje) || i == 0) {
         if (i != rute.size() - 1)

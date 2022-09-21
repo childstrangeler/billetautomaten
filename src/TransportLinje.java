@@ -8,6 +8,6 @@ public class TransportLinje {
   }
 
   public void print() {
-    System.out.print(linje_name + " til stop " + next_stop);
+    System.out.print(linje_name + " til stop " + next_stop + " ");
   }
 }
