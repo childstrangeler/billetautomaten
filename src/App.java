@@ -22,59 +22,126 @@ public class App {
 
     String tilstop = "";
     String frastop = "";
-    int zonepris = 14;
-
-    System.out.print("Hvis du er admin indtast admin password, eller enter: ");
+    int pris_pr_stop = 14;
+    int saldo = 0;
+    boolean is_admin = false;
 
     Scanner user_input = new Scanner(System.in);
 
-    boolean is_admin =
-        user_input.nextLine().replace("\n", "").equals(admin_key);
+    // Køb gratis billet
+    // set pris
+    // se saldo
 
     Map kort = new Map();
 
     kort.print_stops();
+    System.out.println("admin) login som admin");
 
-    System.out.print("Hvilket stop vil du rejse fra? ");
-    frastop = kort.get_stop_name(Integer.parseInt(user_input.nextLine()));
+    while (true) {
+      System.out.println();
 
-    System.out.print("Hvilket stop vil du rejse til? ");
-    tilstop = kort.get_stop_name(Integer.parseInt(user_input.nextLine()));
+      if (is_admin) {
+        System.out.println("# Saldo er " + saldo + " DKK");
+        System.out.print(
+            "# 1) sæt pris pr stop. 2) køb billet. 3) exit admin shell.\n: ");
 
-    ArrayList<TransportLinje> rute = kort.find_path(frastop, tilstop);
+        switch (Integer.parseInt(user_input.nextLine())) {
+        case 1:
+          System.out.print("# ny pris pr stop: ");
+          pris_pr_stop = Integer.parseInt(user_input.nextLine());
+          continue;
 
-    System.out.println("");
+        case 2:
+          break;
 
-    String billet_buffer = "";
-    // for (int i = rute.size() - 1; i >= 0; i--)
-    // rute.get(i).print();
-    String last_linje = "";
-    rute.get(0).print();
-    for (int i = rute.size() - 1; i >= 0; i--) {
-      if (!rute.get(i).linje_name.equals(last_linje) || i == 0) {
-        if (i != rute.size() - 1)
-          billet_buffer += rute.get(i).next_stop;
-        if (i != 0)
-          billet_buffer += " + " + rute.get(i).linje_name + " til ";
-        last_linje = rute.get(i).linje_name;
+        case 3:
+          is_admin = false;
+          continue;
+
+        default:
+          System.out.println("Invalid option");
+          continue;
+        }
       }
-    }
-    System.out.println("");
 
-    format_kvittering(rute.size() * zonepris + " DKK");
-    format_kvittering(billet_buffer);
-    user_input.close();
+      System.out.print("Hvilket stop vil du rejse fra (eller admin)? ");
+      String input = user_input.nextLine();
+      if (input.equals("admin")) {
+        System.out.print("Password: ");
+        input = user_input.nextLine();
+        if (input.equals(admin_key)) {
+          is_admin = true;
+          continue;
+        } else {
+          System.out.println("Wrong password.");
+          continue;
+        }
+      }
+      frastop = kort.get_stop_name(Integer.parseInt(input));
+
+      System.out.print("Hvilket stop vil du rejse til? ");
+      tilstop = kort.get_stop_name(Integer.parseInt(user_input.nextLine()));
+
+      ArrayList<TransportLinje> rute = kort.find_path(frastop, tilstop);
+
+      System.out.println("");
+
+      logo();
+      for (int i = rute.size() - 1; i >= 0; i--)
+        format_kvittering((rute.size() - i) + " : " + rute.get(i).format());
+
+      // String last_linje = "";
+      // rute.get(0).print();
+      // for (int i = rute.size() - 1; i >= 0; i--) {
+      //   if (!rute.get(i).linje_name.equals(last_linje) || i == 0) {
+      //     if (i != rute.size() - 1)
+      //       billet_buffer += rute.get(i).next_stop;
+      //     if (i != 0)
+      //       billet_buffer += " + " + rute.get(i).linje_name + " til ";
+      //     last_linje = rute.get(i).linje_name;
+      //   }
+      // }
+
+      int billetpris = 0;
+      if (!is_admin) {
+        billetpris = rute.size() * pris_pr_stop;
+      }
+
+      format_kvittering(billetpris + " DKK");
+      System.out.println("|"
+                         + "_".repeat(48) + "|");
+    }
+    // user_input.close();
   }
 
   public static void format_kvittering(String kvit) {
-    int breathdhth = 100;
+    int width = 45;
+    kvit += " ".repeat(width - kvit.length());
+    System.out.println("|   " + kvit + "|");
+  }
 
-    for (int i = 0; i <= (breathdhth - kvit.length()) / 2; i++)
-      kvit = " " + kvit + " ";
-
-    if (kvit.length() % 2 != 0)
-      kvit += " ";
-
-    System.out.println("|" + kvit + "|");
+  public static void logo() {
+    System.out.print("         ________________________________         \n"
+                     + "        / @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\\        \n"
+                     + "       / @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\\       \n"
+                     + "      / @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\\      \n"
+                     + "     / @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\\     \n"
+                     + "    / @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\\    \n"
+                     + "   / @@@@@@########@@@@&PJ7?JG@@G######@@@@@@@\\   \n"
+                     + "  / @@@@@@#         G@#:     '@@?  .,,  Y@@@@@@\\  \n"
+                     + " / @@@@@@@#. #@@@.  .##.  .#@@@@?  :#\"  5@@@@@@@\\ \n"
+                     + "|  @@@@@@@#. #@@@@#  G@B.     &@?      {5@@@@@@@@|\n"
+                     + "|\\  @@@@@@#. #@@@#. .&@@@@@.  .@? :@@@:  }@@@@@@/|\n"
+                     +
+                     "| \\  @@@@@#.       .#@5.     .B@?  \"\"\"' .&@@@@&/ |\n"
+                     + "|  \\  @@@@P5555PG&@@@&G5YY5B@@@B55555G#@@@@@#@/  |\n"
+                     + "|   \\  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@B/   |\n"
+                     + "|    \\  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@G/    |\n"
+                     + "|     \\  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@P/     |\n"
+                     + "|      \\  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@Y/      |\n"
+                     + "|       \\________________________________/       |\n"
+                     + "|                                                |\n"
+                     + "|                                                |\n"
+                     + "|                                                |\n");
   }
 }
