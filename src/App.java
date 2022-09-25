@@ -83,25 +83,12 @@ public class App {
         System.out.print("Hvilket stop vil du rejse til? ");
         tilstop = kort.get_stop_name(Integer.parseInt(user_input.nextLine()));
 
-        ArrayList<TransportLinje> rute = kort.find_path(frastop, tilstop);
-
-        System.out.println("");
+        ArrayList<String> rute = kort.find_path(frastop, tilstop).format();
+        // ArrayList<String> rute = (new Rute()).format();
 
         logo();
         for (int i = rute.size() - 1; i >= 0; i--)
-          format_kvittering((rute.size() - i) + " : " + rute.get(i).format());
-
-        // String last_linje = "";
-        // rute.get(0).print();
-        // for (int i = rute.size() - 1; i >= 0; i--) {
-        //   if (!rute.get(i).linje_name.equals(last_linje) || i == 0) {
-        //     if (i != rute.size() - 1)
-        //       billet_buffer += rute.get(i).next_stop;
-        //     if (i != 0)
-        //       billet_buffer += " + " + rute.get(i).linje_name + " til ";
-        //     last_linje = rute.get(i).linje_name;
-        //   }
-        // }
+          format_kvittering((rute.size() - i) + " : " + rute.get(i));
 
         int billetpris = 0;
         if (!is_admin) {
@@ -113,6 +100,7 @@ public class App {
                            + "_".repeat(48) + "|");
       } catch (Exception e) {
         System.out.println("Please enter valid input");
+        System.out.println(e);
       }
     }
     // user_input.close();
