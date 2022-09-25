@@ -38,78 +38,82 @@ public class App {
     System.out.println("admin) login som admin");
 
     while (true) {
-      System.out.println();
+      try {
+        System.out.println();
 
-      if (is_admin) {
-        System.out.println("# Saldo er " + saldo + " DKK");
-        System.out.print(
-            "# 1) sæt pris pr stop. 2) køb billet. 3) exit admin shell.\n: ");
+        if (is_admin) {
+          System.out.println("# Saldo er " + saldo + " DKK");
+          System.out.print(
+              "# 1) sæt pris pr stop. 2) køb billet. 3) exit admin shell.\n: ");
 
-        switch (Integer.parseInt(user_input.nextLine())) {
-        case 1:
-          System.out.print("# ny pris pr stop: ");
-          pris_pr_stop = Integer.parseInt(user_input.nextLine());
-          continue;
+          switch (Integer.parseInt(user_input.nextLine())) {
+          case 1:
+            System.out.print("# ny pris pr stop: ");
+            pris_pr_stop = Integer.parseInt(user_input.nextLine());
+            continue;
 
-        case 2:
-          break;
+          case 2:
+            break;
 
-        case 3:
-          is_admin = false;
-          continue;
+          case 3:
+            is_admin = false;
+            continue;
 
-        default:
-          System.out.println("Invalid option");
-          continue;
+          default:
+            System.out.println("Invalid option");
+            continue;
+          }
         }
-      }
 
-      System.out.print("Hvilket stop vil du rejse fra (eller admin)? ");
-      String input = user_input.nextLine();
-      if (input.equals("admin")) {
-        System.out.print("Password: ");
-        input = user_input.nextLine();
-        if (input.equals(admin_key)) {
-          is_admin = true;
-          continue;
-        } else {
-          System.out.println("Wrong password.");
-          continue;
+        System.out.print("Hvilket stop vil du rejse fra (eller admin)? ");
+        String input = user_input.nextLine();
+        if (input.equals("admin")) {
+          System.out.print("Password: ");
+          input = user_input.nextLine();
+          if (input.equals(admin_key)) {
+            is_admin = true;
+            continue;
+          } else {
+            System.out.println("Wrong password.");
+            continue;
+          }
         }
+        frastop = kort.get_stop_name(Integer.parseInt(input));
+
+        System.out.print("Hvilket stop vil du rejse til? ");
+        tilstop = kort.get_stop_name(Integer.parseInt(user_input.nextLine()));
+
+        ArrayList<TransportLinje> rute = kort.find_path(frastop, tilstop);
+
+        System.out.println("");
+
+        logo();
+        for (int i = rute.size() - 1; i >= 0; i--)
+          format_kvittering((rute.size() - i) + " : " + rute.get(i).format());
+
+        // String last_linje = "";
+        // rute.get(0).print();
+        // for (int i = rute.size() - 1; i >= 0; i--) {
+        //   if (!rute.get(i).linje_name.equals(last_linje) || i == 0) {
+        //     if (i != rute.size() - 1)
+        //       billet_buffer += rute.get(i).next_stop;
+        //     if (i != 0)
+        //       billet_buffer += " + " + rute.get(i).linje_name + " til ";
+        //     last_linje = rute.get(i).linje_name;
+        //   }
+        // }
+
+        int billetpris = 0;
+        if (!is_admin) {
+          billetpris = rute.size() * pris_pr_stop;
+        }
+
+        format_kvittering(billetpris + " DKK");
+        System.out.println("|"
+                           + "_".repeat(48) + "|");
+      } catch (Exception e) {
+        System.out.println("Please enter valid input");
       }
-      frastop = kort.get_stop_name(Integer.parseInt(input));
-
-      System.out.print("Hvilket stop vil du rejse til? ");
-      tilstop = kort.get_stop_name(Integer.parseInt(user_input.nextLine()));
-
-      ArrayList<TransportLinje> rute = kort.find_path(frastop, tilstop);
-
-      System.out.println("");
-
-      logo();
-      for (int i = rute.size() - 1; i >= 0; i--)
-        format_kvittering((rute.size() - i) + " : " + rute.get(i).format());
-
-      // String last_linje = "";
-      // rute.get(0).print();
-      // for (int i = rute.size() - 1; i >= 0; i--) {
-      //   if (!rute.get(i).linje_name.equals(last_linje) || i == 0) {
-      //     if (i != rute.size() - 1)
-      //       billet_buffer += rute.get(i).next_stop;
-      //     if (i != 0)
-      //       billet_buffer += " + " + rute.get(i).linje_name + " til ";
-      //     last_linje = rute.get(i).linje_name;
-      //   }
-      // }
-
-      int billetpris = 0;
-      if (!is_admin) {
-        billetpris = rute.size() * pris_pr_stop;
-      }
-
-      format_kvittering(billetpris + " DKK");
-      System.out.println("|"
-                         + "_".repeat(48) + "|");
     }
     // user_input.close();
   }
