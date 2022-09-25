@@ -114,6 +114,8 @@ public class App {
 
         format_kvittering("");
         format_kvittering("Pris: " + billetpris + " DKK");
+        if (is_admin)
+          format_kvittering("!!! TEST BILLET !!!");
         System.out.println("|"
                            + "_".repeat(48) + "|");
       } catch (Exception e) {
