@@ -8,6 +8,7 @@ public class Map {
   public HashMap<String, ArrayList<TransportLinje>> map;
   ArrayList<String> stoppesteder;
 
+  // Metode til at lave en menu, man kan vælge stop fra.
   public void print_stops() {
     stoppesteder = new ArrayList<String>();
     int i = 0;
@@ -18,8 +19,10 @@ public class Map {
     }
   }
 
+  // Metode til at vælge et stop fra menuen.
   public String get_stop_name(int i) { return stoppesteder.get(i); }
 
+  // Autentisk kort over det danske tog, bus og metro system.
   public Map() {
     map = new HashMap<>();
     HashMap<String, String[]> kortprlinje = new HashMap<>();
@@ -108,6 +111,7 @@ public class Map {
                            "Carlsberg St", "Dybbølsbro St", "København H",
                            "Vesterport St", "Nørreport St", "Østerport St"});
 
+    // Konverter fra struktur af stop på de forskellige linjer, til en graph.
     map.put("Nowhere", new ArrayList<>());
     for (String[] stop : kortprlinje.values())
       for (int i = 0; i < stop.length; i++)

@@ -28,10 +28,6 @@ public class App {
 
     Scanner user_input = new Scanner(System.in);
 
-    // Køb gratis billet
-    // set pris
-    // se saldo
-
     Map kort = new Map();
 
     kort.print_stops();
@@ -42,13 +38,14 @@ public class App {
         System.out.println();
 
         if (is_admin) {
-          System.out.println("# Saldo er " + saldo + " DKK");
+          System.out.println("# Saldo er " + saldo +
+                             " DKK\n# Billeter er gratis for admin.");
           System.out.print(
-              "# 1) sæt pris pr stop. 2) køb billet. 3) exit admin shell.\n: ");
+              "# 1) Sæt pris pr stop. 2) Køb billet. 3) Exit admin shell. 4) Indsæt bytte penge på saldo\n: ");
 
           switch (Integer.parseInt(user_input.nextLine())) {
           case 1:
-            System.out.print("# ny pris pr stop: ");
+            System.out.print("# Ny pris pr stop: ");
             pris_pr_stop = Integer.parseInt(user_input.nextLine());
             continue;
 
@@ -57,6 +54,11 @@ public class App {
 
           case 3:
             is_admin = false;
+            continue;
+
+          case 4:
+            System.out.print("# Ny saldo: ");
+            saldo = Integer.parseInt(user_input.nextLine());
             continue;
 
           default:
@@ -86,16 +88,32 @@ public class App {
         ArrayList<String> rute = kort.find_path(frastop, tilstop).format();
         // ArrayList<String> rute = (new Rute()).format();
 
-        logo();
-        for (int i = rute.size() - 1; i >= 0; i--)
-          format_kvittering((rute.size() - i) + " : " + rute.get(i));
-
         int billetpris = 0;
         if (!is_admin) {
           billetpris = rute.size() * pris_pr_stop;
         }
 
-        format_kvittering(billetpris + " DKK");
+        System.out.print("Billetten koster " + billetpris +
+                         " DKK. Hvor mange penge putter du i maskinen? ");
+        int byttepenge = Integer.parseInt(user_input.nextLine()) - billetpris;
+        if (byttepenge < 0) {
+          System.out.println("For lidt penge betalt!");
+          continue;
+        }
+        if (byttepenge > saldo) {
+          System.out.println("For lidt penge i maskinen");
+          continue;
+        }
+        saldo += billetpris;
+
+        System.out.println("Byttepenge: " + byttepenge + " DKK");
+
+        logo();
+        for (int i = rute.size() - 1; i >= 0; i--)
+          format_kvittering((rute.size() - i) + " : " + rute.get(i));
+
+        format_kvittering("");
+        format_kvittering("Pris: " + billetpris + " DKK");
         System.out.println("|"
                            + "_".repeat(48) + "|");
       } catch (Exception e) {
