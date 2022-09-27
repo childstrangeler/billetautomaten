@@ -31,7 +31,7 @@ public class App {
     Map kort = new Map();
 
     kort.print_stops();
-    System.out.println("admin) login som admin");
+    System.out.println("\nadmin) login som admin");
 
     while (true) {
       try {

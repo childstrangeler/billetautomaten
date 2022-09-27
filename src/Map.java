@@ -10,13 +10,23 @@ public class Map {
 
   // Metode til at lave en menu, man kan vælge stop fra.
   public void print_stops() {
+    int width = 30;
+
     stoppesteder = new ArrayList<String>();
     int i = 0;
+
     for (String stop : map.keySet()) {
       stoppesteder.add(stop);
-      System.out.println(i + ") " + stop);
+      if (i % 2 == 1) {
+        String line = i + ") " + stop;
+        System.out.println(line + " ".repeat(width - line.length()) + (i - 1) +
+                           ") " + stoppesteder.get(i - 1));
+      }
       i++;
     }
+    i--;
+    if (i % 2 == 0)
+      System.out.println(i + ") " + stoppesteder.get(i));
   }
 
   // Metode til at vælge et stop fra menuen.
